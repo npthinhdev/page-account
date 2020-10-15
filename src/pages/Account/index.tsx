@@ -1,9 +1,10 @@
 import React from 'react';
+import AccountRender from './render';
 
 class Account extends React.Component {
   render() {
     return (
-      <div>Test page Account</div>
+      <AccountRender />
     )
   }
 }
