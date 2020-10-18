@@ -8,11 +8,12 @@ class AppRouter extends React.Component {
   render() {
     return (
       <Router>
-        <BaseLayout />
-        <Switch>
-          <Route exact path="/"><Redirect to="/account" /></Route>
-          <Route path="/account" component={Account} />
-        </Switch>
+        <BaseLayout>
+          <Switch>
+            <Route exact path="/"><Redirect to="/account" /></Route>
+            <Route path="/account" component={Account} />
+          </Switch>
+        </BaseLayout>
       </Router>
     )
   }

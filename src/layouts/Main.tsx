@@ -2,9 +2,13 @@ import React from 'react';
 import { Layout, Row, Col, Space, Breadcrumb, Button } from 'antd';
 import { UserAddOutlined } from '@ant-design/icons';
 
+interface Props {
+  children: React.ReactNode
+}
+
 const { Content } = Layout;
 
-const MainLayout = () => {
+const MainLayout: React.FC<Props> = (props) => {
   return (
     <Layout className="side-main">
       <Row className="side-main--header">
@@ -27,7 +31,7 @@ const MainLayout = () => {
       <Content
         className="side-main--content"
       >
-        Content
+        {props.children}
       </Content>
     </Layout>
   )

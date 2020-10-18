@@ -5,13 +5,17 @@ import HeaderLayout from './Header';
 import SiderLayout from './Sider';
 import MainLayout from './Main';
 
-const BaseLayout = () => {
+interface Props {
+  children: React.ReactNode
+}
+
+const BaseLayout: React.FC<Props> = (props) => {
   return (
     <Layout>
       <HeaderLayout />
       <Layout className="main-wrapper">
         <SiderLayout />
-        <MainLayout />
+        <MainLayout>{props.children}</MainLayout>
       </Layout>
     </Layout>
   )
