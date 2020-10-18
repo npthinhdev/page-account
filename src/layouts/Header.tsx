@@ -15,7 +15,7 @@ const HeaderLayout = () => {
           </div>
         </Col>
         <Col>
-          <Row style={{ justifyContent: "end" }}>
+          <Row style={{ justifyContent: "flex-end" }}>
             <Button
               type="link"
               danger
