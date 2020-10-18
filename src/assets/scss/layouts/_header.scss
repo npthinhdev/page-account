@@ -1,0 +1,27 @@
+.header {
+  height: 100%;
+  padding-top: .5rem;
+  padding-bottom: .5rem;
+  &__brand {
+    &--link {
+      font-size: 2.5rem;
+      font-weight: $font-bold;
+      transition: all .2s;
+      &:link,
+      &:visited {
+        color: $color-white;
+      }
+      &:hover {
+        color: $color-grey;
+      }
+    }
+  }
+  &__right {
+    &__top {
+      justify-content: flex-end;
+    }
+  }
+  &__search {
+    width: 15rem;
+  }
+}

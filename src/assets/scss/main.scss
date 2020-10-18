@@ -1,0 +1,29 @@
+@import "./abstracts/variables";
+@import "./base/typography";
+
+@import "./layouts/header";
+
+.main-wrapper {
+  padding-bottom: 2rem;
+}
+
+.side-menu {
+  width: 10rem;
+  &--nav {
+    border-right: 0;
+    height: 100%;
+  }
+}
+
+.side-main {
+  padding: 0 2rem;
+  &--header {
+    padding: 1rem 0;
+  }
+  &--content {
+    background-color: #fff;
+    margin: 0;
+    min-height: 20rem;
+    padding: 1rem;
+  }
+}

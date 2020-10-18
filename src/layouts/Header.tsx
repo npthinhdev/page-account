@@ -9,26 +9,24 @@ const HeaderLayout = () => {
   return (
     <Header className="header">
       <Row>
-        <Col flex="auto">
-          <div className="header--brand">
-            <Link to="/"><h1>Pikachu</h1></Link>
-          </div>
+        <Col flex="auto" className="header__brand">
+          <Link to="/" className="header__brand--link">Pikachu</Link>
         </Col>
         <Col>
-          <Row style={{ justifyContent: "flex-end" }}>
+          <Row className="header__right__top">
             <Button
               type="link"
               danger
-              id="btn-logout"
+              className="header__logout"
             >
               Logout
           </Button>
           </Row>
-          <Row>
+          <Row className="header__right__bottom">
             <Search
               placeholder="Search"
               onSearch={value => console.log(value)}
-              id="input-search"
+              className="header__search"
             />
           </Row>
         </Col>
