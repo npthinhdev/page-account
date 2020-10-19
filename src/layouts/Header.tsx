@@ -13,7 +13,7 @@ const HeaderLayout = () => {
           <Link to="/" className="header__brand--link">Pikachu</Link>
         </Col>
         <Col>
-          <Row className="header__right__top">
+          <Row className="header--right--top">
             <Button
               type="link"
               danger
@@ -22,7 +22,7 @@ const HeaderLayout = () => {
               Logout
           </Button>
           </Row>
-          <Row className="header__right__bottom">
+          <Row className="header--right--bottom">
             <Search
               placeholder="Search"
               onSearch={value => console.log(value)}

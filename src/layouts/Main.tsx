@@ -10,27 +10,23 @@ const { Content } = Layout;
 
 const MainLayout: React.FC<Props> = (props) => {
   return (
-    <Layout className="side-main">
-      <Row className="side-main--header">
-        <Col flex="auto">
+    <Layout className="main--right">
+      <Row className="main__header">
+        <Col flex="auto" className="main__header__breadcrumb">
           <Breadcrumb>
             <Breadcrumb.Item>Admin</Breadcrumb.Item>
             <Breadcrumb.Item>Accounts</Breadcrumb.Item>
           </Breadcrumb>
         </Col>
-        <Space align="center">
-          <Col flex="auto">
-            <Button
-              type="primary"
-              shape="circle"
-              icon={<UserAddOutlined />}
-            />
-          </Col>
-        </Space>
+        <Col flex="auto" className="main__header__func">
+          <Button
+            type="primary"
+            shape="circle"
+            icon={<UserAddOutlined />}
+          />
+        </Col>
       </Row>
-      <Content
-        className="side-main--content"
-      >
+      <Content className="main__content">
         {props.children}
       </Content>
     </Layout>

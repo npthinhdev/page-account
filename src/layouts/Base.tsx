@@ -13,7 +13,7 @@ const BaseLayout: React.FC<Props> = (props) => {
   return (
     <Layout>
       <HeaderLayout />
-      <Layout className="main-wrapper">
+      <Layout className="main">
         <SiderLayout />
         <MainLayout>{props.children}</MainLayout>
       </Layout>

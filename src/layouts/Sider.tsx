@@ -7,12 +7,12 @@ const { SubMenu } = Menu;
 
 const SiderLayout = () => {
   return (
-    <Sider className="side-menu">
+    <Sider className="sider">
       <Menu
         mode="inline"
         defaultOpenKeys={['sub-admin']}
         defaultSelectedKeys={['account']}
-        className="side-menu--nav"
+        className="sider__nav"
       >
         <SubMenu
           key="sub-admin"
