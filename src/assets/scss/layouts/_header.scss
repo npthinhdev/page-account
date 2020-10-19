@@ -22,6 +22,12 @@
     }
   }
   &__search {
-    width: 15rem;
+    input {
+      transition: all .4s;
+      width: 10rem;
+      &:focus {
+        width: 15rem;
+      }
+    }
   }
 }
