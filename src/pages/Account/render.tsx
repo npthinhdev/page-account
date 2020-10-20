@@ -1,5 +1,11 @@
 import React from 'react';
-import { Table, Tag, Space } from 'antd';
+import { Table, Tag, Space, Button } from 'antd';
+import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
+
+interface Props { };
+interface State {
+  accounts: []
+};
 
 const columns = [
   {
@@ -55,38 +61,33 @@ const columns = [
     key: 'action',
     render: () => (
       <Space size="middle">
-        <a>Edit</a>
-        <a>Delete</a>
+        <Button icon={<EditOutlined />} title="Edit"></Button>
+        <Button icon={<DeleteOutlined />} danger title="Delete"></Button>
       </Space>
     )
   }
 ];
 
-const data = [
-  {
-    key: '1',
-    userID: 'admin',
-    firstName: '',
-    lastName: '',
-    status: 'Active',
-    role: 'Admin',
-    domain: 'Global'
-  },
-  {
-    key: '2',
-    userID: 'thinh',
-    firstName: 'Thinh',
-    lastName: 'Nguyen',
-    status: 'Inactive',
-    role: 'User',
-    domain: 'Global'
+class AccountRender extends React.Component<Props, State> {
+  constructor(props: Props) {
+    super(props);
+    this.state = {
+      accounts: []
+    }
   }
-];
-
-class AccountRender extends React.Component {
+  componentDidMount() {
+    let url = "http://localhost:3001/accounts";
+    fetch(url)
+      .then(resp => resp.json())
+      .then(data => {
+        this.setState({
+          accounts: data
+        })
+      })
+  }
   render() {
     return (
-      <Table columns={columns} dataSource={data} bordered />
+      <Table columns={columns} dataSource={this.state.accounts} bordered />
     )
   }
 }

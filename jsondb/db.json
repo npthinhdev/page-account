@@ -1,0 +1,22 @@
+{
+  "accounts": [
+    {
+      "key": "1",
+      "userID": "admin",
+      "firstName": "",
+      "lastName": "",
+      "status": "Active",
+      "role": "Admin",
+      "domain": "Global"
+    },
+    {
+      "key": "2",
+      "userID": "thinh",
+      "firstName": "Thinh",
+      "lastName": "Nguyen",
+      "status": "Inactive",
+      "role": "User",
+      "domain": "Global"
+    }
+  ]
+}
