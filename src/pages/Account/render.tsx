@@ -4,7 +4,8 @@ import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 
 interface Props { };
 interface State {
-  accounts: []
+  accounts: [],
+  loading: boolean
 };
 
 const columns = [
@@ -72,22 +73,30 @@ class AccountRender extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      accounts: []
+      accounts: [],
+      loading: false
     }
   }
   componentDidMount() {
+    this.setState({ loading: true });
     let url = "http://localhost:3001/accounts";
     fetch(url)
       .then(resp => resp.json())
       .then(data => {
         this.setState({
-          accounts: data
+          accounts: data,
+          loading: false
         })
       })
   }
   render() {
     return (
-      <Table columns={columns} dataSource={this.state.accounts} bordered />
+      <Table
+        columns={columns}
+        dataSource={this.state.accounts}
+        loading={this.state.loading}
+        bordered
+      />
     )
   }
 }
