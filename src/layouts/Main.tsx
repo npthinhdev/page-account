@@ -1,9 +1,9 @@
 import React from 'react';
-import { Layout, Row, Col, Breadcrumb, Button } from 'antd';
-import { UserAddOutlined } from '@ant-design/icons';
+import { Layout, Row, Col, Breadcrumb } from 'antd';
 
 interface Props {
-  children: React.ReactNode
+  children: React.ReactNode,
+  headerFunc: React.ReactNode
 }
 
 const { Content } = Layout;
@@ -19,11 +19,7 @@ const MainLayout: React.FC<Props> = (props) => {
           </Breadcrumb>
         </Col>
         <Col flex="auto" className="main__header__func">
-          <Button
-            type="primary"
-            shape="circle"
-            icon={<UserAddOutlined />}
-          />
+          {props.headerFunc}
         </Col>
       </Row>
       <Content className="main__content">

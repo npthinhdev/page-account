@@ -4,14 +4,28 @@ import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-d
 import { Account } from '../pages';
 import BaseLayout from '../layouts/Base';
 
-class AppRouter extends React.Component {
+interface Props { };
+interface State {
+  nodeComp: React.ReactNode
+};
+
+class AppRouter extends React.Component<Props, State> {
+  constructor(props: Props) {
+    super(props);
+    this.state = {
+      nodeComp: null
+    }
+  }
+  callbackFunc = (data: React.ReactNode) => {
+    this.setState({ nodeComp: data });
+  }
   render() {
     return (
       <Router>
-        <BaseLayout>
+        <BaseLayout headerFunc={this.state.nodeComp}>
           <Switch>
             <Route exact path="/"><Redirect to="/account" /></Route>
-            <Route path="/account" component={Account} />
+            <Route path="/account"><Account callbackFunc={this.callbackFunc} /></Route>
           </Switch>
         </BaseLayout>
       </Router>

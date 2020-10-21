@@ -6,7 +6,8 @@ import SiderLayout from './Sider';
 import MainLayout from './Main';
 
 interface Props {
-  children: React.ReactNode
+  children: React.ReactNode,
+  headerFunc: React.ReactNode
 }
 
 const BaseLayout: React.FC<Props> = (props) => {
@@ -15,7 +16,7 @@ const BaseLayout: React.FC<Props> = (props) => {
       <HeaderLayout />
       <Layout className="main">
         <SiderLayout />
-        <MainLayout>{props.children}</MainLayout>
+        <MainLayout headerFunc={props.headerFunc}>{props.children}</MainLayout>
       </Layout>
     </Layout>
   )
