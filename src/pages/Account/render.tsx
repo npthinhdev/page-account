@@ -1,12 +1,22 @@
 import React from 'react';
 import { Table, Tag, Space, Button } from 'antd';
-import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
+import { EditOutlined, DeleteOutlined, UserAddOutlined } from '@ant-design/icons';
 
 interface Props { };
 interface State {
   accounts: [],
   loading: boolean
 };
+
+const HeaderFunc: React.FC = () => {
+  return (
+    <Button
+      type="primary"
+      shape="circle"
+      icon={<UserAddOutlined />}
+    />
+  )
+}
 
 const columns = [
   {
@@ -101,4 +111,4 @@ class AccountRender extends React.Component<Props, State> {
   }
 }
 
-export default AccountRender
+export { AccountRender, HeaderFunc }
