@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import { Table, Tag, Space, Button } from 'antd';
 import { EditOutlined, DeleteOutlined, UserAddOutlined } from '@ant-design/icons';
 
@@ -21,8 +22,8 @@ const HeaderFunc: React.FC = () => {
 const columns = [
   {
     title: 'User ID',
-    dataIndex: 'userID',
-    key: 'userID'
+    dataIndex: 'userName',
+    key: 'userName'
   },
   {
     title: 'First name',
@@ -38,21 +39,25 @@ const columns = [
     title: 'Status',
     dataIndex: 'status',
     key: 'status',
-    render: (status: string) => {
+    render: (status: number) => {
       let color;
-      switch (status.toLocaleLowerCase()) {
-        case "active":
+      let value;
+      switch (status) {
+        case 1:
           color = "green";
+          value = "active";
           break;
-        case "inactive":
+        case 0:
           color = "red";
+          value = "inactive"
           break;
         default:
           color = "black";
+          value = "unknown";
       }
       return (
-        <Tag color={color} key={status}>
-          {status.toUpperCase()}
+        <Tag color={color} key={value}>
+          {value.toUpperCase()}
         </Tag>
       )
     }
@@ -80,24 +85,32 @@ const columns = [
 ];
 
 class AccountRender extends React.Component<Props, State> {
+  API_HOST: string;
   constructor(props: Props) {
     super(props);
     this.state = {
       accounts: [],
       loading: false
     }
+    this.API_HOST = "http://localhost:3001";
   }
-  componentDidMount() {
-    this.setState({ loading: true });
-    let url = "http://localhost:3001/accounts";
-    fetch(url)
-      .then(resp => resp.json())
-      .then(data => {
+  getAllUsers() {
+    // let url = `http://192.168.98.217:9090/getAllUsers?pageSize=${5}&pageNo=${0}&sortBy=${"userName"}`;
+    axios.get(this.API_HOST + "/accounts")
+      .then(res => {
         this.setState({
-          accounts: data,
+          accounts: res.data,
           loading: false
         })
       })
+      .catch(err => {
+        console.log(err);
+      })
+  }
+  componentDidMount() {
+    this.setState({ loading: true });
+    this.getAllUsers();
+    setTimeout(() => this.setState({ loading: false }), 10000);
   }
   render() {
     return (
