@@ -6,7 +6,7 @@ interface Props {
   callbackFunc: Function
 };
 
-class Account extends React.Component<Props> {
+class Account extends React.PureComponent<Props> {
   constructor(props: Props) {
     super(props);
     this.props.callbackFunc(<HeaderFunc />);

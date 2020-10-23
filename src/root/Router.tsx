@@ -9,7 +9,7 @@ interface State {
   nodeComp: React.ReactNode
 };
 
-class AppRouter extends React.Component<Props, State> {
+class AppRouter extends React.PureComponent<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {

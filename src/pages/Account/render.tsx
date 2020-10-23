@@ -1,25 +1,90 @@
 import React from 'react';
 import axios from 'axios';
-import { Table, Tag, Space, Button } from 'antd';
+import { Table, Tag, Space, Button, Modal } from 'antd';
 import { EditOutlined, DeleteOutlined, UserAddOutlined } from '@ant-design/icons';
 
-interface Props { };
-interface State {
+interface PropsAccount { };
+interface StateAccount {
   accounts: [],
   loading: boolean
 };
 
-const HeaderFunc: React.FC = () => {
-  return (
-    <Button
-      type="primary"
-      shape="circle"
-      icon={<UserAddOutlined />}
-    />
-  )
+interface PropsHeaderFunc { };
+interface StateHeaderFunc {
+  visible: boolean,
+  loading: boolean
+};
+
+class HeaderFunc extends React.PureComponent<PropsHeaderFunc, StateHeaderFunc> {
+  constructor(props: PropsHeaderFunc) {
+    super(props);
+    this.state = {
+      visible: false,
+      loading: false
+    };
+  }
+  showModal = () => {
+    this.setState({
+      visible: true
+    })
+  }
+  handleOk = () => {
+    this.setState({
+      loading: true
+    })
+    setTimeout(() => {
+      this.setState({
+        visible: false,
+        loading: false
+      })
+    }, 2000)
+  }
+  handleCancel = () => {
+    console.log("Clicked cancel button");
+    this.setState({
+      visible: false
+    })
+  }
+  render() {
+    const { visible, loading } = this.state;
+    return (
+      <>
+        <Button
+          type="primary"
+          shape="circle"
+          icon={<UserAddOutlined />}
+          onClick={this.showModal}
+        />
+        <Modal
+          title="Add user"
+          visible={visible}
+          onOk={this.handleOk}
+          onCancel={this.handleCancel}
+          footer={[
+            <Button key="cancel" onClick={this.handleCancel}>Cancel</Button>,
+            <Button key="submit" type="primary" loading={loading} onClick={this.handleOk}>Submit</Button>
+          ]}
+        >
+          <p>
+            Username:
+            <input type="text" /><br />
+            First name:
+            <input type="text" /><br />
+            Last name:
+            <input type="text" /><br />
+            Status:
+            <select name="" id="">
+              <option value="">Active</option>
+              <option value="">Inactive</option>
+            </select>
+          </p>
+        </Modal>
+      </>
+    )
+  }
 }
 
-const columns = [
+const accountColumns = [
   {
     title: 'User ID',
     dataIndex: 'userName',
@@ -84,19 +149,20 @@ const columns = [
   }
 ];
 
-class AccountRender extends React.Component<Props, State> {
-  API_HOST: string;
-  constructor(props: Props) {
+class AccountRender extends React.PureComponent<PropsAccount, StateAccount> {
+  apiHost: string;
+  constructor(props: PropsAccount) {
     super(props);
     this.state = {
       accounts: [],
       loading: false
     }
-    this.API_HOST = "http://localhost:3001";
+    this.apiHost = "http://localhost:3001";
   }
   getAllUsers() {
     // let url = `http://192.168.98.217:9090/getAllUsers?pageSize=${5}&pageNo=${0}&sortBy=${"userName"}`;
-    axios.get(this.API_HOST + "/accounts")
+    this.setState({ loading: true });
+    axios.get(this.apiHost + "/accounts")
       .then(res => {
         this.setState({
           accounts: res.data,
@@ -106,16 +172,19 @@ class AccountRender extends React.Component<Props, State> {
       .catch(err => {
         console.log(err);
       })
+      .finally(() => {
+        this.setState({
+          loading: false
+        })
+      })
   }
   componentDidMount() {
-    this.setState({ loading: true });
     this.getAllUsers();
-    setTimeout(() => this.setState({ loading: false }), 10000);
   }
   render() {
     return (
       <Table
-        columns={columns}
+        columns={accountColumns}
         dataSource={this.state.accounts}
         loading={this.state.loading}
         bordered

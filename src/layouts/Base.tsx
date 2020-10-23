@@ -10,16 +10,21 @@ interface Props {
   headerFunc: React.ReactNode
 }
 
-const BaseLayout: React.FC<Props> = (props) => {
-  return (
-    <Layout>
-      <HeaderLayout />
-      <Layout className="main">
-        <SiderLayout />
-        <MainLayout headerFunc={props.headerFunc}>{props.children}</MainLayout>
+class BaseLayout extends React.PureComponent<Props> {
+  constructor(props: Props) {
+    super(props);
+  }
+  render() {
+    return (
+      <Layout>
+        <HeaderLayout />
+        <Layout className="main">
+          <SiderLayout />
+          <MainLayout headerFunc={this.props.headerFunc}>{this.props.children}</MainLayout>
+        </Layout>
       </Layout>
-    </Layout>
-  )
+    )
+  }
 }
 
 export default BaseLayout;

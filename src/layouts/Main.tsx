@@ -8,25 +8,30 @@ interface Props {
 
 const { Content } = Layout;
 
-const MainLayout: React.FC<Props> = (props) => {
-  return (
-    <Layout className="main--right">
-      <Row className="main__header">
-        <Col flex="auto" className="main__header__breadcrumb">
-          <Breadcrumb>
-            <Breadcrumb.Item>Admin</Breadcrumb.Item>
-            <Breadcrumb.Item>Accounts</Breadcrumb.Item>
-          </Breadcrumb>
-        </Col>
-        <Col flex="auto" className="main__header__func">
-          {props.headerFunc}
-        </Col>
-      </Row>
-      <Content className="main__content">
-        {props.children}
-      </Content>
-    </Layout>
-  )
+class MainLayout extends React.PureComponent<Props> {
+  constructor(props: Props) {
+    super(props);
+  }
+  render() {
+    return (
+      <Layout className="main--right">
+        <Row className="main__header">
+          <Col flex="auto" className="main__header__breadcrumb">
+            <Breadcrumb>
+              <Breadcrumb.Item>Admin</Breadcrumb.Item>
+              <Breadcrumb.Item>Accounts</Breadcrumb.Item>
+            </Breadcrumb>
+          </Col>
+          <Col flex="auto" className="main__header__func">
+            {this.props.headerFunc}
+          </Col>
+        </Row>
+        <Content className="main__content">
+          {this.props.children}
+        </Content>
+      </Layout>
+    )
+  }
 }
 
 export default MainLayout;
