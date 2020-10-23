@@ -9,9 +9,6 @@ interface Props {
 const { Content } = Layout;
 
 class MainLayout extends React.PureComponent<Props> {
-  constructor(props: Props) {
-    super(props);
-  }
   render() {
     return (
       <Layout className="main--right">

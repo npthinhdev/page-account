@@ -11,9 +11,6 @@ interface Props {
 }
 
 class BaseLayout extends React.PureComponent<Props> {
-  constructor(props: Props) {
-    super(props);
-  }
   render() {
     return (
       <Layout>
