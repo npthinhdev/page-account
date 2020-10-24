@@ -1,11 +1,12 @@
 import React from 'react';
-import axios from 'axios';
 import { Table, Tag, Space, Button, Modal } from 'antd';
 import { EditOutlined, DeleteOutlined, UserAddOutlined } from '@ant-design/icons';
 
+import * as Services from '../../services';
+
 interface PropsAccount { };
 interface StateAccount {
-  accounts: [],
+  accounts: Array<Object>,
   loading: boolean
 };
 
@@ -162,15 +163,15 @@ class AccountRender extends React.PureComponent<PropsAccount, StateAccount> {
   getAllUsers() {
     // let url = `http://192.168.98.217:9090/getAllUsers?pageSize=${5}&pageNo=${0}&sortBy=${"userName"}`;
     this.setState({ loading: true });
-    axios.get(this.apiHost + "/accounts")
-      .then(res => {
+    Services.getUsers()
+      .then(reps => {
         this.setState({
-          accounts: res.data,
-          loading: false
+          loading: false,
+          accounts: reps
         })
       })
-      .catch(err => {
-        console.log(err);
+      .catch(error => {
+        console.error(error);
       })
       .finally(() => {
         this.setState({
