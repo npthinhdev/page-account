@@ -164,10 +164,10 @@ class AccountRender extends React.PureComponent<PropsAccount, StateAccount> {
     // let url = `http://192.168.98.217:9090/getAllUsers?pageSize=${5}&pageNo=${0}&sortBy=${"userName"}`;
     this.setState({ loading: true });
     Services.getUsers()
-      .then(reps => {
+      .then(resp => {
         this.setState({
           loading: false,
-          accounts: reps
+          accounts: resp
         })
       })
       .catch(error => {
