@@ -1,4 +1,4 @@
-const DOMAIN = "http://localhost";
+const DOMAIN = "http://192.168.98.130";
 const PORT = "3001";
 
 export default {

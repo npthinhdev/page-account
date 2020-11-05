@@ -1,7 +1,5 @@
 import axios from 'axios';
 
-import Config from './Config';
-
 class Request {
   static get(url: string) {
     return this.http("GET", url);
@@ -19,7 +17,7 @@ class Request {
     return new Promise<any>((resolve, rejects) => {
       var config: { [key: string]: any } = {
         method,
-        url: Config.BASE_URL + url,
+        url: url,
         headers: {
           "Accept": "application/json",
           "Content-Type": "application/json"
