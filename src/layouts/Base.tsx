@@ -6,8 +6,8 @@ import SiderLayout from './Sider';
 import MainLayout from './Main';
 
 interface Props {
-  children: React.ReactNode,
-  headerFunc: React.ReactNode
+  children: React.ReactNode;
+  headerFunc: React.ReactNode;
 }
 
 class BaseLayout extends React.PureComponent<Props> {

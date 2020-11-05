@@ -3,7 +3,7 @@ import { Form, Input, Select, Radio } from 'antd';
 import { FormInstance } from 'antd/lib/form';
 
 interface PropForm {
-  onCreate: Function
+  onCreate: Function;
 }
 
 const { Option } = Select;

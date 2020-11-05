@@ -2,8 +2,8 @@ import React from 'react';
 import { Layout, Row, Col, Breadcrumb } from 'antd';
 
 interface Props {
-  children: React.ReactNode,
-  headerFunc: React.ReactNode
+  children: React.ReactNode;
+  headerFunc: React.ReactNode;
 }
 
 const { Content } = Layout;

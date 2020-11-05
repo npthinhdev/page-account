@@ -1,19 +1,31 @@
 import React from 'react';
 
-import { AccountRender, HeaderFunc } from './render';
+import AccountRender from './render';
+import HeaderFunc from './headerFunc';
 
 interface Props {
-  callbackFunc: Function
+  callbackFunc: Function;
+}
+interface State {
+  reload: boolean;
 }
 
-class Account extends React.PureComponent<Props> {
+class Account extends React.PureComponent<Props, State> {
   constructor(props: Props) {
     super(props);
-    this.props.callbackFunc(<HeaderFunc />);
+    this.state = {
+      reload: false
+    }
+    this.props.callbackFunc(<HeaderFunc reload={this.reload} />);
+  }
+  reload = (reload: boolean) => {
+    this.setState({
+      reload: reload
+    })
   }
   render() {
     return (
-      <AccountRender />
+      <AccountRender reload={this.reload} isReload={this.state.reload} />
     )
   }
 }

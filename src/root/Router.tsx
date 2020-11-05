@@ -6,7 +6,7 @@ import BaseLayout from '../layouts/Base';
 
 interface Props { };
 interface State {
-  nodeComp: React.ReactNode
+  nodeComp: React.ReactNode;
 };
 
 class AppRouter extends React.PureComponent<Props, State> {

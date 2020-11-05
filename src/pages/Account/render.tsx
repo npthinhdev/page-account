@@ -1,84 +1,16 @@
 import React from 'react';
-import { Table, Tag, Space, Button, Modal } from 'antd';
-import { EditOutlined, DeleteOutlined, UserAddOutlined } from '@ant-design/icons';
+import { Table, Tag, Space, Button } from 'antd';
+import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 
 import * as Services from '../../services';
-import UserForm from './form';
 
-interface PropsAccount { }
+interface PropsAccount {
+  reload: Function;
+  isReload: boolean;
+}
 interface StateAccount {
-  accounts: Array<Object>,
-  loading: boolean
-}
-
-interface PropsHeaderFunc { }
-interface StateHeaderFunc {
-  visible: boolean,
-  loading: boolean
-}
-
-class HeaderFunc extends React.PureComponent<PropsHeaderFunc, StateHeaderFunc> {
-  constructor(props: PropsHeaderFunc) {
-    super(props);
-    this.state = {
-      visible: false,
-      loading: false
-    };
-  }
-  showModal = () => {
-    this.setState({
-      visible: true
-    })
-  }
-  handleCancel = () => {
-    this.setState({
-      visible: false
-    })
-  }
-  handleCreate = (values: any) => {
-    this.setState({
-      loading: true
-    })
-    Services.createUser(values)
-      .then(() => {
-        this.setState({
-          visible: false
-        })
-      })
-      .catch(error => {
-        console.error(error);
-      })
-      .finally(() => {
-        this.setState({
-          loading: false
-        })
-      })
-  }
-  render() {
-    const { visible, loading } = this.state;
-    return (
-      <>
-        <Button
-          type="primary"
-          shape="circle"
-          icon={<UserAddOutlined />}
-          onClick={this.showModal}
-        />
-        <Modal
-          title="Add user"
-          visible={visible}
-          onCancel={this.handleCancel}
-          destroyOnClose={true}
-          footer={[
-            <Button key="cancel" onClick={this.handleCancel}>Cancel</Button>,
-            <Button key="submit" type="primary" form="formUser" htmlType="submit" loading={loading}>Submit</Button>
-          ]}
-        >
-          <UserForm onCreate={this.handleCreate} />
-        </Modal>
-      </>
-    )
-  }
+  accounts: Array<Object>;
+  loading: boolean;
 }
 
 const accountColumns = [
@@ -174,6 +106,12 @@ class AccountRender extends React.PureComponent<PropsAccount, StateAccount> {
   componentDidMount() {
     this.getAllUsers();
   }
+  componentDidUpdate() {
+    if (this.props.isReload) {
+      this.getAllUsers();
+      this.props.reload(false);
+    }
+  }
   render() {
     return (
       <Table
@@ -187,4 +125,4 @@ class AccountRender extends React.PureComponent<PropsAccount, StateAccount> {
   }
 }
 
-export { AccountRender, HeaderFunc }
+export default AccountRender;
