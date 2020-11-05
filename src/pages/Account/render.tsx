@@ -3,18 +3,19 @@ import { Table, Tag, Space, Button, Modal } from 'antd';
 import { EditOutlined, DeleteOutlined, UserAddOutlined } from '@ant-design/icons';
 
 import * as Services from '../../services';
+import UserForm from './form';
 
-interface PropsAccount { };
+interface PropsAccount { }
 interface StateAccount {
   accounts: Array<Object>,
   loading: boolean
-};
+}
 
-interface PropsHeaderFunc { };
+interface PropsHeaderFunc { }
 interface StateHeaderFunc {
   visible: boolean,
   loading: boolean
-};
+}
 
 class HeaderFunc extends React.PureComponent<PropsHeaderFunc, StateHeaderFunc> {
   constructor(props: PropsHeaderFunc) {
@@ -29,22 +30,29 @@ class HeaderFunc extends React.PureComponent<PropsHeaderFunc, StateHeaderFunc> {
       visible: true
     })
   }
-  handleOk = () => {
-    this.setState({
-      loading: true
-    })
-    setTimeout(() => {
-      this.setState({
-        visible: false,
-        loading: false
-      })
-    }, 2000)
-  }
   handleCancel = () => {
-    console.log("Clicked cancel button");
     this.setState({
       visible: false
     })
+  }
+  handleCreate = (values: any) => {
+    this.setState({
+      loading: true
+    })
+    Services.createUser(values)
+      .then(() => {
+        this.setState({
+          visible: false
+        })
+      })
+      .catch(error => {
+        console.error(error);
+      })
+      .finally(() => {
+        this.setState({
+          loading: false
+        })
+      })
   }
   render() {
     const { visible, loading } = this.state;
@@ -59,26 +67,14 @@ class HeaderFunc extends React.PureComponent<PropsHeaderFunc, StateHeaderFunc> {
         <Modal
           title="Add user"
           visible={visible}
-          onOk={this.handleOk}
           onCancel={this.handleCancel}
+          destroyOnClose={true}
           footer={[
             <Button key="cancel" onClick={this.handleCancel}>Cancel</Button>,
-            <Button key="submit" type="primary" loading={loading} onClick={this.handleOk}>Submit</Button>
+            <Button key="submit" type="primary" form="formUser" htmlType="submit" loading={loading}>Submit</Button>
           ]}
         >
-          <p>
-            Username:
-            <input type="text" /><br />
-            First name:
-            <input type="text" /><br />
-            Last name:
-            <input type="text" /><br />
-            Status:
-            <select name="" id="">
-              <option value="">Active</option>
-              <option value="">Inactive</option>
-            </select>
-          </p>
+          <UserForm onCreate={this.handleCreate} />
         </Modal>
       </>
     )
@@ -151,22 +147,18 @@ const accountColumns = [
 ];
 
 class AccountRender extends React.PureComponent<PropsAccount, StateAccount> {
-  apiHost: string;
   constructor(props: PropsAccount) {
     super(props);
     this.state = {
       accounts: [],
       loading: false
     }
-    this.apiHost = "http://localhost:3001";
   }
   getAllUsers() {
-    // let url = `http://192.168.98.217:9090/getAllUsers?pageSize=${5}&pageNo=${0}&sortBy=${"userName"}`;
     this.setState({ loading: true });
     Services.getUsers()
       .then(resp => {
         this.setState({
-          loading: false,
           accounts: resp
         })
       })
@@ -185,6 +177,7 @@ class AccountRender extends React.PureComponent<PropsAccount, StateAccount> {
   render() {
     return (
       <Table
+        rowKey="id"
         columns={accountColumns}
         dataSource={this.state.accounts}
         loading={this.state.loading}

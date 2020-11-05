@@ -6,31 +6,31 @@ class Request {
   static get(url: string) {
     return this.http("GET", url);
   }
-  static post(url: string, params: Array<string>) {
+  static post(url: string, params: Object) {
     return this.http("POST", url, params);
   }
-  static put(url: string, params: Array<string>) {
+  static put(url: string, params: Object) {
     return this.http("PUT", url, params);
   }
-  static delete(url: string, params: Array<string>) {
+  static delete(url: string, params: Object) {
     return this.http("DELETE", url, params);
   }
-  static http(method: string, url: string, params?: Array<string>) {
+  static http(method: string, url: string, params?: Object) {
     return new Promise<any>((resolve, rejects) => {
-      var configs: { [key: string]: any } = {
+      var config: { [key: string]: any } = {
         method,
-        header: {
+        url: Config.BASE_URL + url,
+        headers: {
           "Accept": "application/json",
           "Content-Type": "application/json"
         }
       };
       if (params) {
-        configs.data = JSON.stringify(params);
+        config.data = JSON.stringify(params);
       }
-      let urlAPI = Config.BASE_URL + url;
-      axios(urlAPI, configs)
+      axios(config)
         .then(resp => {
-          if (resp.status === 200) {
+          if (resp.status === 200 || resp.status === 201) {
             resolve(resp.data);
           } else {
             rejects(resp.statusText);
