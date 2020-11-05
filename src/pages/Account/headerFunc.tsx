@@ -60,6 +60,7 @@ class HeaderFunc extends React.PureComponent<PropsHeaderFunc, StateHeaderFunc> {
           shape="circle"
           icon={<UserAddOutlined />}
           onClick={this.showModal}
+          title="Add user"
         />
         <Modal
           title="Add user"
