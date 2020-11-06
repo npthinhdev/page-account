@@ -11,6 +11,11 @@
         color: $color-white;
       }
     }
+    &--img {
+      height: auto;
+      margin-right: .25rem;
+      width: 40px;
+    }
   }
   &--right {
     &--top {
