@@ -5,16 +5,16 @@ import { UserAddOutlined } from '@ant-design/icons';
 import * as Services from '../../services';
 import UserForm from './form';
 
-interface PropsHeaderFunc {
+interface Props {
   reload: Function;
 }
-interface StateHeaderFunc {
+interface State {
   visible: boolean;
   loading: boolean;
 }
 
-class HeaderFunc extends React.PureComponent<PropsHeaderFunc, StateHeaderFunc> {
-  constructor(props: PropsHeaderFunc) {
+class HeaderFunc extends React.PureComponent<Props, State> {
+  constructor(props: Props) {
     super(props);
     this.state = {
       visible: false,

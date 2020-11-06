@@ -4,82 +4,81 @@ import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 
 import * as Services from '../../services';
 
-interface PropsAccount {
+interface Props {
   reload: Function;
   isReload: boolean;
 }
-interface StateAccount {
+interface State {
   accounts: Array<Object>;
   loading: boolean;
 }
 
-const accountColumns = [
-  {
-    title: 'User ID',
-    dataIndex: 'userName',
-    key: 'userName'
-  },
-  {
-    title: 'First name',
-    dataIndex: 'firstName',
-    key: 'firstName'
-  },
-  {
-    title: 'Last name',
-    dataIndex: 'lastName',
-    key: 'lastName'
-  },
-  {
-    title: 'Status',
-    dataIndex: 'status',
-    key: 'status',
-    render: (status: number) => {
-      let color;
-      let value;
-      switch (status) {
-        case 1:
-          color = "green";
-          value = "active";
-          break;
-        case 0:
-          color = "red";
-          value = "inactive"
-          break;
-        default:
-          color = "black";
-          value = "unknown";
+class AccountRender extends React.PureComponent<Props, State> {
+  accountColumns = [
+    {
+      title: 'Username',
+      dataIndex: 'userName',
+      key: 'userName'
+    },
+    {
+      title: 'First name',
+      dataIndex: 'firstName',
+      key: 'firstName'
+    },
+    {
+      title: 'Last name',
+      dataIndex: 'lastName',
+      key: 'lastName'
+    },
+    {
+      title: 'Status',
+      dataIndex: 'status',
+      key: 'status',
+      render: (status: number) => {
+        let color;
+        let value;
+        switch (status) {
+          case 1:
+            color = "green";
+            value = "active";
+            break;
+          case 0:
+            color = "red";
+            value = "inactive"
+            break;
+          default:
+            color = "black";
+            value = "unknown";
+        }
+        return (
+          <Tag color={color} key={value}>
+            {value.toUpperCase()}
+          </Tag>
+        )
       }
-      return (
-        <Tag color={color} key={value}>
-          {value.toUpperCase()}
-        </Tag>
+    },
+    {
+      title: 'Role',
+      dataIndex: 'role',
+      key: 'role'
+    },
+    {
+      title: 'Domain',
+      dataIndex: 'domain',
+      key: 'domain'
+    },
+    {
+      title: 'Actions',
+      key: 'action',
+      render: () => (
+        <Space size="middle">
+          <Button icon={<EditOutlined />} title="Edit"></Button>
+          <Button icon={<DeleteOutlined />} danger title="Delete"></Button>
+        </Space>
       )
     }
-  },
-  {
-    title: 'Role',
-    dataIndex: 'role',
-    key: 'role'
-  },
-  {
-    title: 'Domain',
-    dataIndex: 'domain',
-    key: 'domain'
-  },
-  {
-    title: 'Actions',
-    key: 'action',
-    render: () => (
-      <Space size="middle">
-        <Button icon={<EditOutlined />} title="Edit"></Button>
-        <Button icon={<DeleteOutlined />} danger title="Delete"></Button>
-      </Space>
-    )
-  }
-];
-
-class AccountRender extends React.PureComponent<PropsAccount, StateAccount> {
-  constructor(props: PropsAccount) {
+  ]
+  constructor(props: Props) {
     super(props);
     this.state = {
       accounts: [],
@@ -116,7 +115,7 @@ class AccountRender extends React.PureComponent<PropsAccount, StateAccount> {
     return (
       <Table
         rowKey="id"
-        columns={accountColumns}
+        columns={this.accountColumns}
         dataSource={this.state.accounts}
         loading={this.state.loading}
         bordered

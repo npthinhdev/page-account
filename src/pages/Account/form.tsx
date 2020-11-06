@@ -9,8 +9,8 @@ interface PropForm {
 const { Option } = Select;
 
 const layout = {
-  labelCol: { span: 4 },
-  wrapperCol: { span: 20 }
+  labelCol: { span: 5 },
+  wrapperCol: { span: 19 }
 }
 
 class UserForm extends React.PureComponent<PropForm> {
@@ -24,7 +24,7 @@ class UserForm extends React.PureComponent<PropForm> {
   render() {
     return (
       <Form {...layout} ref={this.formRef} name="formUser" className="form-user" onFinish={this.onFinish} onFinishFailed={this.onFinishFailed}>
-        <Form.Item name="userName" label="User ID" rules={[{ required: true, message: "This is required" }]}>
+        <Form.Item name="userName" label="Username" rules={[{ required: true, message: "This is required" }]}>
           <Input />
         </Form.Item>
         <Form.Item label="Name" className="form-user__name">
