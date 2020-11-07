@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layout, Row, Col, Button, Input, Image } from 'antd';
+import { Layout, Row, Col, Button, Input } from 'antd';
 import { Link } from 'react-router-dom';
 
 const { Header } = Layout;
@@ -10,7 +10,7 @@ const HeaderLayout = () => {
     <Header className="header">
       <Row>
         <Col flex="auto" className="header__brand">
-          <Link to="/" className="header__brand--link"><img src="/pikachu.png" className="header__brand--img" />Pikachu</Link>
+          <Link to="/" className="header__brand--link"><img src="/pikachu.png" className="header__brand--img" alt="brand img" />Pikachu</Link>
         </Col>
         <Col>
           <Row className="header--right--top">
