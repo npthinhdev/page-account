@@ -2,7 +2,7 @@ import React from 'react';
 import { Form, Input, Select, Radio } from 'antd';
 import { FormInstance } from 'antd/lib/form';
 
-interface PropForm {
+interface Prop {
   onCreate: Function;
 }
 
@@ -13,7 +13,7 @@ const layout = {
   wrapperCol: { span: 19 }
 }
 
-class UserForm extends React.PureComponent<PropForm> {
+class UserForm extends React.PureComponent<Prop> {
   formRef = React.createRef<FormInstance>();
   onFinish = (values: any) => {
     this.props.onCreate(values)
